@@ -1,104 +1,134 @@
 * {
     box-sizing: border-box;
-    font-family: 'Source Sans Pro', sans-serif;
-    text-align: center;
-    color: white;
-    letter-spacing: 0.1rem;
 }
 
 body {
     margin: 0;
-    padding: 0;
-    overflow: hidden;
+    font-family: 'Roboto Slab', sans-serif;
+    background-color: rgba(4, 0, 24, 1);
 }
 
 .wrapper {
-    width: 100vw;
     height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bground {
+    width: 110vw;
+    height: 110vh;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    z-index: 1;
+    background-image: url('media/brainstorm.jpg');
+    background-size: cover;
+    transition: all 100ms;
+    opacity: 0.4;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    color: white;
+    background-color: rgba(4, 0, 24, 0.9);
+    height: 100vh;
+    min-width: 300px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #348cb2;
-    position: relative;
-}
-
-.middle-box {
-    text-align: center;
-    width: 100%;
-    margin-top: -300px;
-    z-index: 999;
-}
-
-h1 {
-    font-weight: 900;
-    font-size: 48px;
-    margin: 0;
-}
-
-p {
-    font-weight: 70;
-    font-size: 28px;
-}
-
-.nav {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.nav-item {
-    animation: show 0.5s ease-in-out forwards;
-    border: solid 1px white;
-    border-radius: 100%;
-    width: 72px;
-    height: 72px;
-    margin: 10px;
-    display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 200ms linear;
 }
 
-.nav-item a {
-    color: white;
-    outline: 0;
-    text-decoration: none;
-    font-size: 28px;
+.container p:first-child {
+    font-size: 25px;
+    letter-spacing: 3px;
 }
 
-.nav-item:hover {
-    cursor: pointer;
-    border-width: 2px;
-    background-color: rgba(255, 255, 255, 0.175);
+.container p:nth-of-type(2) {
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
 }
 
-.bg {
-    background: url("https://image.ibb.co/hmyUDS/bg.jpg") repeat-x bottom left;
-    height: 100%;
+.container p:nth-of-type(2) span {
+    font-weight: bold;
+}
+
+.button {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: rgba(4, 0, 24, 0.9);
     position: absolute;
-    background-size: 2250px;
-    width: 6750px;
-    z-index: 1;
-    animation: bg 60s linear infinite;
+    margin-top: -20px;
+    top: 50vh;
+    left: 320px;
+    transition: all 200ms;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-@keyframes bg {
-    0% {
-        transform: translate(0);
-    }
-    100% {
-        transform: translate(-2250px);
-    }
+.isClicked {
+    margin-top: 0;
+    top: 0;
+    left: 310px;
+    border-radius: 0px;
+    background-color: rgba(12, 6, 43, 0.9);
 }
 
-@keyframes show {
-    0% {
-        transform: translate(0, 16px);
-        opacity: 0;
-    }
-    100% {
-        transform: translate(0);
-        opacity: 1;
-    }
+.button:hover {
+    background-color: rgba(22, 13, 68, 0.9);
+}
+
+.fonticon {
+    font-size: 30px;
+    transition: all 600ms;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rotation {
+    transform: rotate(180deg);
+}
+
+.sidebox {
+    background-color: rgba(4, 0, 24, 0.9);
+    width: 310px;
+    color: white;
+    position: fixed;
+    bottom: 0px;
+    left: -310px;
+    z-index: 2;
+    padding: 30px;
+    height: 100vh;
+    transition: left 200ms;
+}
+
+.isHidden {
+    bottom: 0px;
+    left: 0px;
+}
+
+.sidebox p.info {
+    padding-left: 30px;
+}
+
+.sidebox p {
+    font-size: 12px;
+    letter-spacing: 1px;
+    line-height: 200%;
+}
+
+.sidebox p.title {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
