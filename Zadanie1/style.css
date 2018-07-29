@@ -32,6 +32,7 @@ body {
 }
 
 .container {
+    white-space: nowrap;
     position: relative;
     z-index: 2;
     color: white;
@@ -42,6 +43,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
 }
 
 .container p:first-child {
@@ -53,9 +56,10 @@ body {
     font-size: 15px;
     text-transform: uppercase;
     letter-spacing: 3px;
+    line-height: 200%;
 }
 
-.container p:nth-of-type(2) span {
+.container p span {
     font-weight: bold;
 }
 

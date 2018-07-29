@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', init);
 function init() {
     paralax();
     btnToAsideBar();
+    dynamicTxt();
 }
 
 function paralax() {
@@ -38,13 +39,44 @@ function infoAboutParalax(a, b, c, d, e, f) {
     newTop.innerText = f - 10 + 'px';
 }
 
-function btnToAsideBar(){
+function btnToAsideBar() {
     let btn = document.querySelector('.button');
     let sidebar = document.querySelector('.sidebox');
     let fonticon = document.querySelector('.fonticon');
-    btn.addEventListener('click', function(){
+    btn.addEventListener('click', function () {
         btn.classList.toggle('isClicked');
         sidebar.classList.toggle('isHidden');
         fonticon.classList.toggle('rotation');
     });
+}
+
+function dynamicTxt() {
+    let author = document.querySelector('#motto');
+    let myname = [
+        'T', 'r', 'y', 'i', 'n', 'g', ' t', 'o', ' l','e','a','r','n','<br />','h','o','w',' i','t' 
+    ];
+    let surname = [
+        ' w', 'o', 'r', 'k', 's'
+    ];
+    let mynameiterator = 0;
+    let surnameiterator = 0;
+    let fullStop = false;
+
+    function setTextToParagraph(string, i, el) {
+        el.innerHTML = el.innerHTML + string[i];
+        i++;
+        if (i < string.length) {
+            setTimeout(function () {
+                setTextToParagraph(string, i, el)
+            }, 100);
+        } else if (i === string.length && fullStop === false) {
+            setTimeout(function () {
+                fullStop = true;
+                let span = document.createElement('span');
+                author.appendChild(span);
+                setTextToParagraph(surname, surnameiterator, span);
+            }, 100);
+        }
+    }
+    setTextToParagraph(myname, mynameiterator, author);
 }
