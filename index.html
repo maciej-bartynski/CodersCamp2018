@@ -13,49 +13,45 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,700&amp;subset=latin-ext" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700&amp;subset=latin-ext" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" media="screen" href="Zadanie1-wizytowka/style.css" />
-<script src="Zadanie1-wizytowka/main.js"></script>
-<script src="Zadanie1-wizytowka/magic.js"></script>
+    <script src="Zadanie1-wizytowka/main.js"></script>
+    <script src="Zadanie1-wizytowka/magic.js"></script>
 </head>
 
 <body>
     <div class="wrapper">
         <div class="bground"></div>
+    </div>
+    <div class="positioner">
         <div class="container">
             <img src='Zadanie1-wizytowka/media/photo_square.jpg' alt="my photo" />
             <p id="author">Maciej<span>Bartyński</span>
             </p>
             <p id="motto"></p>
             <div class="icon-positioner">
-                <i class="fab fa-linkedin-in top" id="lin"></i>   
+                <i class="fab fa-linkedin-in top" id="lin"></i>
                 <i class="fab fa-github right" id="git"></i>
                 <i class="fas fa-drafting-compass left" id="por"></i>
             </div>
         </div>
-        <div class="sidebox">
+        <div class="asidebar">
+            <!---->
             <p class="title">How it works:</p>
             <p class="btnhead">Paralax effect</p>
             <div class="article" id="paralax">
                 <p>Pure JavaScript, event: mousemove. On the event:</p>
-                <p class="info">var x = event.clientX:
-                    <span id="x">23</span>
-                </p>
-                <p class="info">var y = event.clientY:
-                    <span id="y">23</span>
+                <p class="info">Mouse position (event.clientX)<br/>
+                    <span id="x">0</span>
                 </p>
                 <p>Scale:</p>
-                <p class="info">scaleX = window.innerWidth divide by 100:
-                    <span id="scaleX">23</span>
+                <p class="info">Browser window width:<br/>
+                    <span id="scaleY">0</span>
                 </p>
-                <p class="info">scaleY = window.innerHeight divide by 100:
-                    <span id="scaleY">23</span>
+                <p class="info">Mouse position (percentage)<br/>
+                    <span id="scaleX">0</span>
                 </p>
-                <p>Background is inside a wrapper element (overflow: hidden). B-ground position: absolute, initial top: -10px,
-                    initial left: -10px. On event:</p>
-                <p class="info">newLeft = initial - x/scaleX:
-                    <span id="newleft">23</span>
-                </p>
-                <p class="info">newTop = initial - y/scaleY:
-                    <span id="newtop">23</span>
+                <p>Background (negative left margin) moves inside a wrapper element (overflow: hidden) according to mouse percentage position:</p>
+                <p class="info">Left margin +=<br/><span id="scaleXb">0</span><br/>x (margin/-100).</p>
+                <p class="info">New left margin:<br/><span id="newleft">0</span> px;
                 </p>
             </div>
             <p class="btnhead">Dynamic text</p>
@@ -81,9 +77,9 @@
             <div class="button">
                 <i class="fas fa-angle-right fonticon"></i>
             </div>
+            <!---->
         </div>
     </div>
 </body>
 
 </html>
-<!--https://app.ludus.one/9f38537f-1575-4dfd-8b43-47b808c9418a-->

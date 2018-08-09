@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', initMagic);
 
 function initMagic() {
+    setTimeout(showMagicOnStart,4000);
     let links = document.querySelectorAll('.icon-positioner i');
     let iter = links.length;
     for (let i = 0; i < iter; i++) {
@@ -11,12 +12,21 @@ function initMagic() {
         });
     }
 }
+function showMagicOnStart(i=0){
+    if (i<3){
+        setTimeout(function () {
+            rotateOneStep();
+            i++;
+            showMagicOnStart(i);
+        }, 400);
+    }
+}
 
 function doMagicRotation(link) {
     let linkID = link.getAttribute('id');
     let addres;
     if (linkID === 'git') {
-        addres = 'https://www.github.com/maciej-bartynski/CodersCamp2018/';
+        addres = 'https://www.github.com/maciej-bartynski/';
     } else if (linkID === 'lin') {
         addres = 'https://www.linkedin.com/in/maciej-bartynski';
     } else if (linkID === 'por') {
@@ -31,14 +41,16 @@ function doMagicRotation(link) {
     }
 }
 
-function rotateOneStep(link) {
+function rotateOneStep(link=null) {
     let nodes = [document.querySelector('.left'), document.querySelector('.top'), document.querySelector('.right')];
     let arr = ['left', 'top', 'right', 'left'];
     for (let j = 0; j < 3; j++) {
         nodes[j].classList.remove(arr[j]);
         nodes[j].classList.add(arr[j + 1]);
     }
-    setTimeout(function () {
-        window.open(link, '_blank');
-    }, 400);
+    if(link!==null){
+        setTimeout(function () {
+            window.open(link, '_blank');
+        }, 400);
+    }
 }
