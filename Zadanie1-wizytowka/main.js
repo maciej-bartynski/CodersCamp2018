@@ -3,22 +3,22 @@ document.addEventListener('DOMContentLoaded', init);
 
 function init() {
     paralax();
-    btnToAsideBar();
-    dynamicTxt();
-    dynamicTxtArticle();
-    btnsInsideAsideBar();
+    //btnToAsideBar();
+    //dynamicTxt();
+    //dynamicTxtArticle();
+    //btnsInsideAsideBar();
 }
 
-function btnsInsideAsideBar(){
+function btnsInsideAsideBar() {
     let btns = document.querySelectorAll('.btnhead');
     let articles = document.querySelectorAll('.article');
-    for (let i=0;i<2;i++){
-        let iter=i;
-        btns[iter].addEventListener('click', function(e){
+    for (let i = 0; i < 2; i++) {
+        let iter = i;
+        btns[iter].addEventListener('click', function (e) {
             articles[iter].classList.toggle('isActive');
-            if (iter===0){
+            if (iter === 0) {
                 articles[1].classList.remove('isActive')
-            }else{
+            } else {
                 articles[0].classList.remove('isActive')
             }
         })
@@ -26,31 +26,77 @@ function btnsInsideAsideBar(){
 }
 
 function paralax() {
-    window.addEventListener('mousemove', function (e) {
-        let bg = document.querySelector('.bground');
-        let initialTop = -10;
-        let initialLeft = -10;
-        
-        let x = e.clientX;
-        let y = e.clientY;
-        let vw = window.innerWidth;
-        let vh = window.innerHeight;
-        let dividerX = vw / 100;
-        let dividerY = vh / 100;
-        let pointPosX = (Math.floor(x / dividerX)) / 10;
-        let pointPosY = (Math.floor(y / dividerY)) / 10;
-        
-        bg.style.left = -10 - pointPosX + 'px';
-        bg.style.top = -10 - pointPosY + 'px';
-        infoAboutParalax(x, y, dividerX, dividerY, pointPosX, pointPosY);
-        containerMoveOpposite(x, y, dividerX, dividerY, pointPosX, pointPosY);
+    let bg = document.querySelector('.bground');
+    let sp = document.querySelector('.container');
+    let initialLeftMargin = bg.offsetLeft;
+    window.addEventListener('resize', function () {
+        bg.style.left = '-2.5vw';
+        initialLeftMargin = bg.offsetLeft;
+        sp.style.rotateY = 'none';
     });
+    setTimeout(function(){
+    window.addEventListener('mousemove', function (e) {
+        //bg
+        let windowWidth = window.innerWidth;
+        let clientPositionFromLeftEdge = e.clientX;
+        let clientPositionInPercentage = clientPositionFromLeftEdge / (windowWidth / 100);
+        let newLeftMargin = initialLeftMargin + (clientPositionInPercentage * (initialLeftMargin / -100));
+        bg.style.left = newLeftMargin + 'px';
+        let cpp = clientPositionInPercentage;
+        let x;
+        if (cpp>39&&cpp<61){
+            sp.style.backgroundColor = 'rgba(4,0,24,0.9)';
+        } else if (cpp > 60) {
+            x = (100 - cpp) * 2;
+            x = x < 20 ? 20 : x;
+            sp.style.backgroundColor = 'rgba(4,0,24,'+x/100+')';
+            sp.style.transition = 'none';
+        }  else if (cpp < 40) { 
+            x = cpp * 2;
+            x = x<20?20:x;
+            sp.style.backgroundColor= 'rgba(4, 0, 24,'+x/100+')';
+            sp.style.transition = 'none';
+        } 
+        //let x = cpp > 50 ? (cpp * (45 / 100)) : cpp * (45 / -100); 
+        
+        //sp.style.transform = 'perspecti(' + x + 'deg)';
+        /*{
+            let x = clientPositionInPercentage;
+            let y = x * (45 / 100);
+            sp.style.transform = 'rotateZ(' + y + 'deg)';
+        } else {
+            let x = clientPositionInPercentage;
+            let y = x * (45 / 100);
+            sp.style.transform = 'rotateZ(-' + y + 'deg)';
+        }*/
+        //let y = x*(45/100);
+        //sp.style.transform = 'rotateY('+x+'deg)';
+
+        /*
+                let x = e.clientX;
+                let y = e.clientY;
+                let vw = window.innerWidth;
+                let vh = window.innerHeight;
+                let dividerX = vw / 100;
+                let dividerY = vh / 100;
+                let pointPosX = (Math.floor(x / dividerX)) / 10;
+                let pointPosY = (Math.floor(y / dividerY)) / 10;
+                
+                bg.style.left = -10 - pointPosX + 'px';
+                bg.style.top = -10 - pointPosY + 'px';
+                infoAboutParalax(x, y, dividerX, dividerY, pointPosX, pointPosY);
+                containerMoveOpposite(x, y, dividerX, dividerY, pointPosX, pointPosY);
+            */
+    });
+    }, 5000);
 }
-function containerMoveOpposite(x, y, dividerX, dividerY, pointPosX, pointPosY){
+
+function containerMoveOpposite(x, y, dividerX, dividerY, pointPosX, pointPosY) {
     let ct = document.querySelector('.container');
     ct.style.left = pointPosX + 'px';
     ct.style.top = pointPosY + 'px';
 }
+
 function infoAboutParalax(a, b, c, d, e, f) {
     let idX = document.querySelector('#x');
     let idY = document.querySelector('#y');
@@ -62,8 +108,8 @@ function infoAboutParalax(a, b, c, d, e, f) {
     idY.innerText = b;
     scaleX.innerText = c;
     scaleY.innerText = d;
-    newLeft.innerText = (-10)-e + 'px';
-    newTop.innerText = (-10)-f + 'px';
+    newLeft.innerText = (-10) - e + 'px';
+    newTop.innerText = (-10) - f + 'px';
 }
 
 function btnToAsideBar() {
@@ -71,7 +117,7 @@ function btnToAsideBar() {
     let sidebar = document.querySelector('.sidebox');
     let fonticon = document.querySelector('.fonticon');
     let wrapper = document.querySelector('.wrapper');
-    btn.addEventListener('click', function () {   
+    btn.addEventListener('click', function () {
         btn.classList.toggle('isClicked');
         sidebar.classList.toggle('isHidden');
         fonticon.classList.toggle('rotation');
@@ -82,7 +128,7 @@ function btnToAsideBar() {
 function dynamicTxt() {
     let author = document.querySelector('#motto');
     let myname = [
-        'T', 'r', 'y', 'i', 'n', 'g', ' t', 'o', ' l','e','a','r','n','<br />','h','o','w',' i','t' 
+        'T', 'r', 'y', 'i', 'n', 'g', ' t', 'o', ' l', 'e', 'a', 'r', 'n', '<br />', 'h', 'o', 'w', ' i', 't'
     ];
     let surname = [
         ' w', 'o', 'r', 'k', 's'
@@ -114,34 +160,36 @@ function dynamicTxtArticle() {
     let button = document.querySelector('#domcontentload');
     button.addEventListener('click', dynamizeArticle);
 }
-function dynamizeArticle(){
+
+function dynamizeArticle() {
     document.querySelector('#domcontentload').removeEventListener('click', dynamizeArticle);
     document.querySelector('#inn').classList.add('mainText');
     setTimeout(iteratorStep, 400);
     //iterator
     let i = 0;
-    let array = ['m','y','t','e','x','t'];
-    function iteratorStep(){
+    let array = ['m', 'y', 't', 'e', 'x', 't'];
+
+    function iteratorStep() {
         let belt = document.querySelector('#a');
         let iter = belt.querySelector('#iterator');
         belt.classList.add('actualStep');
-        iter.innerText=i;
+        iter.innerText = i;
         iter.classList.add('blink');
         setTimeout(arrayStep, 600);
     }
     //array step
-    function arrayStep(){
+    function arrayStep() {
         document.querySelector('#a').classList.remove('actualStep');
         document.querySelector('#a #iterator').classList.remove('blink');
         let belt = document.querySelector('#c');
         let char = belt.querySelector('#char');
         belt.classList.add('actualStep');
-        char.innerText=array[i];
+        char.innerText = array[i];
         char.classList.add('blink');
         setTimeout(innerTextStep, 600);
     }
     //innerTextStep
-    function innerTextStep(){
+    function innerTextStep() {
         document.querySelector('#c').classList.remove('actualStep');
         document.querySelector('#c #char').classList.remove('blink');
         let belt = document.querySelector('#d');
@@ -151,16 +199,16 @@ function dynamizeArticle(){
         setTimeout(iplusplusStep, 300);
     }
     //call i++
-    function iplusplusStep(){
+    function iplusplusStep() {
         document.querySelector('#d').classList.remove('actualStep');
-        document.querySelector('#d #inn').classList.remove('blink'); 
+        document.querySelector('#d #inn').classList.remove('blink');
         let belt = document.querySelector('#e');
         belt.classList.add('actualStep');
         belt.classList.add('blink');
         setTimeout(iteratorPlus, 300);
     }
     //do i++
-    function iteratorPlus(){
+    function iteratorPlus() {
         document.querySelector('#e').classList.remove('actualStep');
         document.querySelector('#e').classList.remove('blink');
         let belt = document.querySelector('#a');
@@ -172,7 +220,7 @@ function dynamizeArticle(){
         setTimeout(recursiveStep, 600);
     }
     //recursive
-    function recursiveStep(){
+    function recursiveStep() {
         document.querySelector('#a').classList.remove('actualStep');
         document.querySelector('#a').classList.remove('blink');
         let belt = document.querySelector('#f');
@@ -182,16 +230,17 @@ function dynamizeArticle(){
         setTimeout(callingNext, 1000);
     }
     //call function
-    function callingNext(){
+    function callingNext() {
         document.querySelector('#call').classList.add('blink');
         setTimeout(clearAll, 300);
     }
-    function clearAll(){
+
+    function clearAll() {
         document.querySelector('#f').classList.remove('actualStep');
         document.querySelector('#f #call').classList.remove('blink');
         document.querySelector('#f i').classList.remove('timerRotation');
-        if (i<6){
-            iteratorStep(); 
+        if (i < 6) {
+            iteratorStep();
         } else {
             document.querySelector('#inn').classList.remove('mainText');
             document.querySelector('#domcontentload').addEventListener('click', dynamizeArticle);

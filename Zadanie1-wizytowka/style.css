@@ -12,38 +12,54 @@ body {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  position: relative;
+  /*position: relative;*/
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-@media only screen and (max-width: 310px){
+/*@media only screen and (max-width: 310px){
   .mobile {
     height: 1080px;
   }
-}
+}*/
 .bground {
-  min-width: 110vw;
-  height: 110vh;
+  width: 105vw;
+  height: 100vh;
   position: absolute;
-  top: -10px;
-  left: -10px;
+  top: 0;
+  left: -2.5vw;
   z-index: 1;
   background-image: url("media/brainstorm.jpg");
   background-size: cover;
-  transition: all 100ms;
   opacity: 0.4;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-perspective: 100px;
+  perspective: 100px;
 }
-
+span.opposite-move {
+  border: 3px red solid;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+.positioner {
+  width: 100%;
+  position: relative;
+}
 .container {
   white-space: nowrap;
-  position: relative;
+  position: absolute;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 2;
   color: white;
   background-color: rgba(4, 0, 24, 0.9);
-  height: 120vh;
+  min-height: 100vh;
   padding: 0 4vh 0 4vh;
   display: flex;
   flex-direction: column;
