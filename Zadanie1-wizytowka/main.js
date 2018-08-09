@@ -3,12 +3,34 @@ document.addEventListener('DOMContentLoaded', init);
 
 function init() {
     paralax();
-    //btnToAsideBar();
-    //dynamicTxt();
-    //dynamicTxtArticle();
-    //btnsInsideAsideBar();
+    asideboxAndContainerHeight();
+    window.addEventListener('resize', asideboxAndContainerHeight);
+    window.addEventListener('scroll', asideboxAndContainerHeight);
+    btnToAsideBar();
+    dynamicTxt();
+    dynamicTxtArticle();
+    btnsInsideAsideBar();
+    heightOfImgAccordingToIExplorerIAmSadAboutMicrosoftStillExists();
 }
-
+function heightOfImgAccordingToIExplorerIAmSadAboutMicrosoftStillExists(){
+    let IMG = document.querySelector('img');
+}
+function asideboxAndContainerHeight(){
+    let cont = document.querySelector('.container');
+    let asid = document.querySelector('.asidebar');
+    let article = document.querySelector('#dynamictxt').offsetTop + document.querySelector('#dynamictxt').offsetHeight+15;
+    let arr = [cont, asid];
+    arr.forEach(function(item, idx){
+        let currentH = item.offsetHeight;
+        let otherH = idx===1 ? arr[0].offsetHeight : arr[1].offsetHeight;
+        let minH = currentH>otherH ? currentH : otherH;
+        let finalMinH = minH>=article?minH:article;
+        let preventMinH = finalMinH>=window.innerHeight?finalMinH:window.innerHeight;
+        if (preventMinH !== currentH){
+            item.style.minHeight = preventMinH + 'px';
+        };
+    });
+}
 function btnsInsideAsideBar() {
     let btns = document.querySelectorAll('.btnhead');
     let articles = document.querySelectorAll('.article');
@@ -21,6 +43,7 @@ function btnsInsideAsideBar() {
             } else {
                 articles[0].classList.remove('isActive')
             }
+            setTimeout(asideboxAndContainerHeight,401);
         })
     }
 }
@@ -57,71 +80,31 @@ function paralax() {
             sp.style.backgroundColor= 'rgba(4, 0, 24,'+x/100+')';
             sp.style.transition = 'none';
         } 
-        //let x = cpp > 50 ? (cpp * (45 / 100)) : cpp * (45 / -100); 
-        
-        //sp.style.transform = 'perspecti(' + x + 'deg)';
-        /*{
-            let x = clientPositionInPercentage;
-            let y = x * (45 / 100);
-            sp.style.transform = 'rotateZ(' + y + 'deg)';
-        } else {
-            let x = clientPositionInPercentage;
-            let y = x * (45 / 100);
-            sp.style.transform = 'rotateZ(-' + y + 'deg)';
-        }*/
-        //let y = x*(45/100);
-        //sp.style.transform = 'rotateY('+x+'deg)';
-
-        /*
-                let x = e.clientX;
-                let y = e.clientY;
-                let vw = window.innerWidth;
-                let vh = window.innerHeight;
-                let dividerX = vw / 100;
-                let dividerY = vh / 100;
-                let pointPosX = (Math.floor(x / dividerX)) / 10;
-                let pointPosY = (Math.floor(y / dividerY)) / 10;
-                
-                bg.style.left = -10 - pointPosX + 'px';
-                bg.style.top = -10 - pointPosY + 'px';
-                infoAboutParalax(x, y, dividerX, dividerY, pointPosX, pointPosY);
-                containerMoveOpposite(x, y, dividerX, dividerY, pointPosX, pointPosY);
-            */
+        infoAboutParalax(clientPositionFromLeftEdge, windowWidth, clientPositionInPercentage, newLeftMargin);
     });
     }, 5000);
 }
 
-function containerMoveOpposite(x, y, dividerX, dividerY, pointPosX, pointPosY) {
-    let ct = document.querySelector('.container');
-    ct.style.left = pointPosX + 'px';
-    ct.style.top = pointPosY + 'px';
-}
-
-function infoAboutParalax(a, b, c, d, e, f) {
+function infoAboutParalax(clientPositionFromLeftEdge, windowWidth, clientPositionInPercentage, newLeftMargin){
     let idX = document.querySelector('#x');
-    let idY = document.querySelector('#y');
+    idX.innerText = clientPositionFromLeftEdge;
+    let winWid = document.querySelector('#scaleY');
+    winWid.innerText=windowWidth;
     let scaleX = document.querySelector('#scaleX');
-    let scaleY = document.querySelector('#scaleY');
+    scaleX.innerText = clientPositionInPercentage
+    let scaleXb = document.querySelector('#scaleXb');
+    scaleXb.innerText = clientPositionInPercentage;
     let newLeft = document.querySelector('#newleft');
-    let newTop = document.querySelector('#newtop');
-    idX.innerText = a;
-    idY.innerText = b;
-    scaleX.innerText = c;
-    scaleY.innerText = d;
-    newLeft.innerText = (-10) - e + 'px';
-    newTop.innerText = (-10) - f + 'px';
+    newLeft.innerText = newLeftMargin;
 }
-
 function btnToAsideBar() {
     let btn = document.querySelector('.button');
-    let sidebar = document.querySelector('.sidebox');
+    let sidebar = document.querySelector('.asidebar');
     let fonticon = document.querySelector('.fonticon');
-    let wrapper = document.querySelector('.wrapper');
     btn.addEventListener('click', function () {
         btn.classList.toggle('isClicked');
         sidebar.classList.toggle('isHidden');
         fonticon.classList.toggle('rotation');
-        wrapper.classList.toggle('mobile');
     });
 }
 
